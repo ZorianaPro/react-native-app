@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     gcmq = require('gulp-group-css-media-queries'),
     gutil = require("gulp-util"),
-    webpack = require("webpack-dev-server");
+    webpack = require("webpack"),
+    WebpackDevServer = require("webpack-dev-server");
 sourcemaps = require("gulp-sourcemaps");
 babel = require("gulp-babel");
 concat = require("gulp-concat");
@@ -33,17 +34,21 @@ gulp.task('styles', function() {
         .pipe(csscomb())
         .pipe(gulp.dest(path.build.styles));
 });
-gulp.task('scripts', function() {
-    return gulp.src(path.src.js)
-        .pipe(sourcemaps.init())
-        .pipe(babel())
-        .pipe(concat("index.js"))
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest(path.build.js));
-});
+
 gulp.task('default', function() {
     gulp.watch(path.watch.styles, ['styles']);
-    gulp.watch(path.watch.js, ['scripts']);
+    gulp.watch(path.watch.js, ['webpack']);
+});
+gulp.task("webpack", function(callback) {
+    // run webpack
+    webpack(require("./webpack.config.js"),
+        function(err, stats) {
+        if(err) throw new gutil.PluginError("webpack", err);
+        gutil.log("[webpack]", stats.toString({
+            // output options
+        }));
+        callback();
+    });
 });
 gulp.task("webpack-dev-server", function(callback) {
     // Start a webpack-dev-server
