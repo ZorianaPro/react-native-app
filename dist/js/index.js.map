@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.js"],"names":["map","n"],"mappings":";;AAAA,CAAC,CAAD,EAAG,CAAH,EAAMA,GAAN,CAAU;AAAA,SAAKC,IAAI,CAAT;AAAA,CAAV","file":"index.js","sourcesContent":["[1,2].map(n => n + 1);"]}
