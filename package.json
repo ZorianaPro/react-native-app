@@ -14,6 +14,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-csscomb": "^3.0.8",
     "gulp-group-css-media-queries": "^1.2.0",
+    "gulp-npm-run": "0.0.3",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "jest-expo": "~20.0.0",
