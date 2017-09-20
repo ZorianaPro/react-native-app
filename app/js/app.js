@@ -12,6 +12,7 @@ export default class App extends React.Component {
         );
     }
 }
+//fffffgg
 
 const styles = StyleSheet.create({
     container: {

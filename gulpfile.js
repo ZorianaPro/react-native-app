@@ -5,17 +5,19 @@ var gulp = require('gulp'),
     gcmq = require('gulp-group-css-media-queries'),
     gutil = require("gulp-util"),
     webpack = require("webpack"),
+    webpackConfig = require("./webpack.config.js"),
     WebpackDevServer = require("webpack-dev-server");
 sourcemaps = require("gulp-sourcemaps");
 babel = require("gulp-babel");
 concat = require("gulp-concat");
+
 var path = {
     watch: {// за чем следить
         js: 'app/js/**/*.js',
-        styles: 'app/scss/**/*.scss'
+        styles: 'app/sass/**/*.scss'
     },
     src: {// что брать
-        styles: 'app/scss/style.scss',
+        styles: 'app/sass/style.scss',
         js: 'app/js/index.js'
     },
     build: {// куда складывать
@@ -50,25 +52,24 @@ gulp.task("webpack", function(callback) {
         callback();
     });
 });
-gulp.task("webpack-dev-server", function(callback) {
+
+gulp.task('webpack-dev-server', function(callback) {
+    // modify some webpack config options
+
+    var myConfig = Object.create(webpackConfig);
+    myConfig.devtool = 'eval';
+    myConfig.debug = true;
+
     // Start a webpack-dev-server
-    var compiler = webpack({
-        // configuration
+    new WebpackDevServer(webpack(myConfig), {
+        publicPath: '/' + myConfig.output.publicPath,
+        stats: {
+            colors: true
+        },
+        contentBase: '/'
+    }).listen(8080, 'localhost', function(err) {
+        if(err) throw new gutil.PluginError('webpack-dev-server', err);
+        gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
+        proxy.run();
     });
-
-    new WebpackDevServer(compiler, {
-        // server and middleware options
-    }).listen(8080, "localhost", function(err) {
-        if(err) throw new gutil.PluginError("webpack-dev-server", err);
-        // Server listening
-        gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
-
-        // keep the server alive or continue?
-        // callback();
-    });
-});
-gulp.task('sass', function(){
-    gulp.src('app/sass/**/*.scss')
-        .pipe(sass()) // Using gulp-sass
-        .pipe(gulp.dest('app/css'))
 });
