@@ -1,5 +1,257 @@
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url('../fonts/Roboto-Light.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('../fonts/Roboto-Medium.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('../fonts/Roboto-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 
-// styles.scss
-.testing {
-  width: percentage(5/7);
+@mixin translate($x,$y){
+  -webkit-transform: translate($x,$y);
+  -moz-transform: translate($x,$y);
+  -ms-transform: translate($x,$y);
+  -o-transform: translate($x,$y);
+  transform: translate($x,$y);
+}
+@mixin scale($x,$y){
+  -webkit-transform: scale($x,$y);
+  -moz-transform: scale($x,$y);
+  -ms-transform: scale($x,$y);
+  -o-transform: scale($x,$y);
+  transform: scale($x,$y);
+}
+
+$white: #ffffff;
+$light: #f7f7f7;
+$dark: #242424;
+$brown: #2e2e2e;
+$grey: #959595;
+
+body{
+  margin: 0;
+  position: relative;
+  @extend .rl, .fz16;
+  background-color: $white;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility:    hidden;
+  -ms-backface-visibility:     hidden;
+  color: $dark;
+}
+
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  &:focus{
+    outline: none;
+  }
+}
+
+header,
+section,
+footer{
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  color: $dark;
+  line-height: 1.2em;
+}
+
+h1{
+  @extend .rr;
+  letter-spacing: 1px;
+  font-size: 4.12vw;
+}
+
+h2{
+  @extend .fz52, .rl;
+  letter-spacing: 1px;
+}
+
+h3{
+  @extend .fz42, .rl;
+}
+
+h4{
+  @extend .fz30, .rl;
+}
+
+p{
+  margin: 0;
+  line-height: 1.8em;
+  @extend .rl;
+  color: $grey;
+}
+
+.slogan{
+  //@extend .fz28;
+  font-size: 1.77vw;
+  letter-spacing: 0.1px;
+  color: $dark;
+  margin: 0 0 0 1px;
+  line-height: 1.1em;
+}
+
+.title{
+  line-height: 1.4em;
+  @extend .rr;
+  letter-spacing: -0.3px;
+  color: $dark;
+}
+
+.rl{
+  font-family: 'Roboto-Light', sans-serif;
+}
+
+.rm{
+  font-family: 'Roboto-Medium', sans-serif;
+}
+
+.rr{
+  font-family: 'Roboto-Regular', sans-serif;
+}
+
+.ttu{
+  text-transform: uppercase;
+}
+
+.fz58{
+  font-size: 58px;
+}
+.fz52{
+  font-size: 52px;
+}
+.fz42{
+  font-size: 42px;
+}
+.fz30{
+  font-size: 30px;
+}
+.fz28{
+  font-size: 28px;
+}
+.fz16{
+  font-size: 16px;
+}
+
+.containImg{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-object-fit: contain;
+  -moz-object-fit: contain;
+  -ms-object-fit: contain;
+  -o-object-fit: contain;
+  object-position: center;
+  -webkit-object-position: center;
+  -moz-object-position: center;
+  -ms-object-position: center;
+  -o-object-position: center;
+}
+.coverImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-object-fit: cover;
+  -moz-object-fit: cover;
+  -ms-object-fit: cover;
+  -o-object-fit: cover;
+  object-position: center;
+  -webkit-object-position: center;
+  -moz-object-position: center;
+  -ms-object-position: center;
+  -o-object-position: center;
+}
+
+//bootstrap styles
+.container {
+  //max-width: 1230px;
+  max-width: 5300px;
+  width: 100%;
+  padding-right: 145px;
+  padding-left: 145px;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  z-index: 2;
+}
+.row {
+  margin-right: -10px;
+  margin-left: -10px;
+  overflow: hidden;
+}
+.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,.col-xs-3,.col-sm-3,.col-md-3,.col-lg-3,.col-xs-4,.col-sm-4,.col-md-4,.col-lg-4,.col-xs-5,.col-sm-5,.col-md-5,.col-lg-5,.col-xs-6,.col-sm-6,.col-md-6,.col-lg-6,.col-xs-7,.col-sm-7,.col-md-7,.col-lg-7,.col-xs-8,.col-sm-8,.col-md-8,.col-lg-8,.col-xs-9,.col-sm-9,.col-md-9,.col-lg-9,.col-xs-10,.col-sm-10,.col-md-10,.col-lg-10,.col-xs-11,.col-sm-11,.col-md-11,.col-lg-11,.col-xs-12,.col-sm-12,.col-md-12,.col-lg-12{position:relative;min-height:1px;padding-right:10px;padding-left:10px}.col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12{float:left}.col-xs-12{width:100%}.col-xs-11{width:91.66666667%}.col-xs-10{width:83.33333333%}.col-xs-9{width:75%}.col-xs-8{width:66.66666667%}.col-xs-7{width:58.33333333%}.col-xs-6{width:50%}.col-xs-5{width:41.66666667%}.col-xs-4{width:33.33333333%}.col-xs-3{width:25%}.col-xs-2{width:16.66666667%}.col-xs-1{width:8.33333333%}@media (min-width: 768px){.col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10,.col-sm-11,.col-sm-12{float:left}.col-sm-12{width:100%}.col-sm-11{width:91.66666667%}.col-sm-10{width:83.33333333%}.col-sm-9{width:75%}.col-sm-8{width:66.66666667%}.col-sm-7{width:58.33333333%}.col-sm-6{width:50%}.col-sm-5{width:41.66666667%}.col-sm-4{width:33.33333333%}.col-sm-3{width:25%}.col-sm-2{width:16.66666667%}.col-sm-1{width:8.33333333%}}@media (min-width: 992px){.col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-10,.col-md-11,.col-md-12{float:left}.col-md-12{width:100%}.col-md-11{width:91.66666667%}.col-md-10{width:83.33333333%}.col-md-9{width:75%}.col-md-8{width:66.66666667%}.col-md-7{width:58.33333333%}.col-md-6{width:50%}.col-md-5{width:41.66666667%}.col-md-4{width:33.33333333%}.col-md-3{width:25%}.col-md-2{width:16.66666667%}.col-md-1{width:8.33333333%}}@media (min-width: 1200px){.col-lg-1,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-10,.col-lg-11,.col-lg-12{float:left}.col-lg-12{width:100%}.col-lg-11{width:91.66666667%}.col-lg-10{width:83.33333333%}.col-lg-9{width:75%}.col-lg-8{width:66.66666667%}.col-lg-7{width:58.33333333%}.col-lg-6{width:50%}.col-lg-5{width:41.66666667%}.col-lg-4{width:33.33333333%}.col-lg-3{width:25%}.col-lg-2{width:16.66666667%}.col-lg-1{width:8.33333333%}}
+//end bootstrap styles
+
+#wrapper{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 3000px;
+}
+
+.header{
+  position: absolute;
+}
+
+.folder{
+  position: relative;
+  min-height: 552px;
+  height: 100vh;
+  .carousel{
+    position: absolute;
+    width: 57vw;
+    right: 0;
+    &:before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.7);
+      z-index: 1;
+    }
+  }
+  .slide{
+    min-height: 552px;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center right;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 43vw;
+    background-color: $white;
+  }
+  .box{
+    margin: 213px 0 0 0;
+    padding: 0 0 0 106px;
+  }
+}
+
+.box{
+  position: relative;
 }

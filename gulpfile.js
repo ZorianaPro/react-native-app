@@ -10,6 +10,8 @@ var gulp = require('gulp-npm-run')(require('gulp')),
 sourcemaps = require("gulp-sourcemaps");
 babel = require("gulp-babel");
 concat = require("gulp-concat");
+var run = require('gulp-run-command').default;
+var livereload = require('gulp-livereload');
 
 var path = {
     watch: {// за чем следить
@@ -35,12 +37,20 @@ gulp.task('styles', function() {
         .pipe(gcmq())
         .pipe(csscomb())
         .pipe(gulp.dest(path.build.styles));
+
 });
 
 gulp.task('default', function() {
     gulp.watch(path.watch.styles, ['styles']);
-    gulp.watch(path.watch.js, ['webpack']);
+    livereload.listen();
+    gulp.watch(path.watch.js, ['webpack']).on('change', livereload.changed);
+    //gulp.watch(path.watch.js, [run('react-native-scripts start')]);
 });
+// gulp.task('watch', function(){
+//     livereload.listen();
+//     gulp.watch('sass/*.scss', ['sass']).on('change', livereload.changed);
+// });
+//робочий webpack
 gulp.task("webpack", function(callback) {
     // run webpack
     webpack(require("./webpack.config.js"),
@@ -52,24 +62,25 @@ gulp.task("webpack", function(callback) {
         callback();
     });
 });
+//робочий webpack-dev-server
+gulp.task('webpack-dev-server', function (callback) {
+    var myConfig = Object.create(webpackConfig);
 
-// gulp.task('webpack-dev-server', function(callback) {
-//     // modify some webpack config options
-//
-//     var myConfig = Object.create(webpackConfig);
-//     myConfig.devtool = 'eval';
-//     myConfig.debug = true;
-//
-//     // Start a webpack-dev-server
-//     new WebpackDevServer(webpack(myConfig), {
-//         publicPath: '/' + myConfig.output.publicPath,
-//         stats: {
-//             colors: true
-//         },
-//         contentBase: '/'
-//     }).listen(8080, 'localhost', function(err) {
-//         if(err) throw new gutil.PluginError('webpack-dev-server', err);
-//         gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
-//         //proxy.run();
-//     });
-// });
+    myConfig.devtool = 'eval';
+
+
+    // Start a webpack-dev-server
+    new WebpackDevServer(webpack(myConfig), {
+        publicPath: "/" + myConfig.output.publicPath,
+        stats: {
+            colors: true
+        }
+    }).listen(3333, 'localhost', function (err) {
+        if (err) {
+            throw new gutil.PluginError('webpack-dev-server', err);
+        }
+        gutil.log('[webpack-dev-server]', 'http://localhost:3333/index.html');
+
+    });
+    callback();
+});

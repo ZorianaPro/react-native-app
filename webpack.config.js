@@ -1,4 +1,4 @@
-
+var webpack = require('webpack');
 module.exports = {
     entry: "./app/js/index.js",
     module: {
@@ -18,14 +18,18 @@ module.exports = {
             "react-native": "react-native-web"
         }
     },
+
     output: {
         path: __dirname + '/dist/js',
+        publicPath: '/',
         filename: 'bundle.js'
     },
     devtool: '#sourcemap',
-    plugins: [
-
-    ]
+    // plugins: [
+    //     new webpack.LoaderOptionsPlugin({
+    //         debug: false
+    //     })
+    // ]
 
 
 }
